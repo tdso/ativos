@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Ativos</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel=”stylesheet” href=”css/estilos.css”>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="css/bootstrap.js"></script>
+    <script src="css/bootstrap.js.map"></script>
+    <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
+    <style>
+        .borda {
+            border: 1px solid;
+            color: black;
+            background-color: white;
+        }
+        .espaco-topo {
+            margin-top: 15px;
+        }
+        .espaço-rodape {
+            margin-bottom: 15px;
+        }
+        body {
+            background-color: black;
+        }
+        .nova-negociacao {
+            color: blue;
+        }
+    </style>
+</head>
+<body class="container">
+
+    <div class="container borda espaco-topo" >
+        <div class="row">
+            <div class="col-md-3">Resumo</div>
+            <div class="col-md-3">Negociações</div>
+            <div class="col-md-3">Dividendos</div>
+            <div class="col-md-3">Métricas</div>
+        </div>
+    </div>
+
+    <h1 class="text-center" style="color:white">Negociações</h1>
+
+    <div id="mensagemView"></div>
+
+    <div class="container borda espaco-topo">
+
+        <div class="row espaco-topo espaço-rodape">
+            <div class="col" style="text-align: right;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInclusao">
+                    Incluir Nova Negociação
+                </button>
+                <!-- <span class="btn btn-primary nova-negociacao" data-toggle="modal" data-target="#modalInclusao">Nova Negociação</span> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">Ativo</div>
+            <div class="col-md-3">Operações entre</div>
+            <div class="col-md-3">Até</div>
+            <div class="col-md-3">Tipo de Operação</div>
+        </div>
+        <div class="row espaco-topo">
+            <!-- <div class="form"> -->
+                <!-- <div class="row"> -->
+                    <div class="col-md-3">
+                        <input type="text" id="id-ativo" class="form-control" required autofocus/>        
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" id="data-pesq-inicio" class="form-control" required autofocus/>        
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" id="data-pesq-fim" class="form-control" required autofocus/>        
+                    </div>
+                    <div class="col-md-3">
+                        <input type="data" id="tipo-operacao" class="form-control" required autofocus/>        
+                        <!-- <select class="form-control form-control-line">
+                            <option>-- Selecione --</option>
+                            <option>Sim</option>
+                            <option>Não</option>
+
+                          </select> -->
+                    </div>
+                <!-- </div> -->
+            <!-- </div> -->
+        </div>
+        <div class="row espaco-topo espaço-rodape">
+            <div class="col" style="text-align: right;">
+                <button id="bt-pesquisar" class="btn btn-primary" type="submit">Pesquisar</button>
+            </div>
+        </div>
+    </div>   
+    
+    <br>
+    <br>
+    <div id="negociacoes" class="borda">
+        <p>dsdsdsdsdsd</p>
+        <p>dsdsdsdsdsd</p>
+        <p>dsdsdsdsdsd</p>
+    </div>
+
+    <!-- Modal para Incluir Negociacao -->
+    <div class="modal fade" id="modalInclusao" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Título do modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app/controllers/negociacao/ControllerNegociacao.js"></script>
+    <script src="app/app.js"></script>
+    
+    <!-- <script src="app/index.js"></script> -->
+    <!-- <script src="app/util/HttpService.js"></script>
+    <script src="app/domain/negociacao/Negociacao.js"></script>
+    <script src="app/domain/negociacao/Negociacoes.js"></script>
+    <script src="app/domain/negociacao/NegociacaoService.js"></script>
+    <script src="app/ui/views/View.js"></script>
+    <script src="app/ui/views/NegociacoesView.js"></script>
+    <script src="app/ui/models/Mensagem.js"></script>
+    <script src="app/ui/views/MensagemView.js"></script>
+    <script src="app/ui/converters/DateConverter.js"></script>
+    <script src="app/util/ProxyFactory.js"></script>
+    <script src="app/util/Bind.js"></script>
+    <script src="app/controllers/NegociacaoController.js"></script>
+    <script src="app/util/ApplicationException.js"></script>
+    <script src="app/ui/converters/DataInvalidaException.js"></script>
+
+</body>
+</html>
