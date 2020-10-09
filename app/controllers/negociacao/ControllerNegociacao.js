@@ -9,7 +9,7 @@ class ControllerNegociacao {
     pesquisaAtivos(){
         console.log("metodo pesquisa ativos acionado");
         console.log("Ativo = ", this.idAtivo.value);
-        this.service.getNegociacoes('http://localhost:8080/ativos')
+        this.service.getNegociacoes()
         .then(dados => console.log(dados));
     }
 }
