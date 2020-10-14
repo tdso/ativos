@@ -27,6 +27,19 @@
         .nova-negociacao {
             color: blue;
         }
+        .input-tipo {
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        .label-inclusao {
+            font-size: 14px;
+        }
+        .trash {
+            width: 25px;;
+            height: 25px;
+        }
+
     </style>
 </head>
 <body class="container">
@@ -42,7 +55,8 @@
 
     <h1 class="text-center" style="color:white">Negociações</h1>
 
-    <div id="mensagemView"></div>
+    <div class="mensagem-sistema" id="msg">
+    </div>
 
     <div class="container borda espaco-topo">
 
@@ -93,29 +107,56 @@
     </div>   
     
     <br>
-    <br>
-    <div id="negociacoes" class="borda">
-        <p>dsdsdsdsdsd</p>
-        <p>dsdsdsdsdsd</p>
-        <p>dsdsdsdsdsd</p>
-    </div>
+    <div id="negs" class="borda"></div>
 
     <!-- Modal para Incluir Negociacao -->
     <div class="modal fade" id="modalInclusao" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Título do modal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <h5 class="modal-title" id="exampleModalLabel">Inclusão de Negociações</h5>
+                    <button type="button" id="fecharModal" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                
+                <br>
+                <div class="mensagem-sistema" id="inc-msg">
+                </div>
+
                 <div class="modal-body">
-                    ...
+                    <div class="row">
+                        <input type="radio" id="inc-compra" name="tipo" value="1" checked class="input-tipo">
+                        <label for="compra">Compra</label><br>
+                        <input type="radio" id="inc-venda" name="tipo" value="2" class="input-tipo">
+                        <label for="venda">Venda</label><br>
+                    </div>
+                    <div class="row label-inclusao">
+                        <div class="col-md-3">Ativo</div>
+                        <div class="col-md-2">Quantidade</div>
+                        <div class="col-md-3">Preço</div>
+                        <div class="col-md-4">Data</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="text" id="inc-ativo" style="width: 100px;">
+                        </div>
+                        <div class="col-md-2" >
+                            <input type="text" required id="inc-qtde" style="width: 70px;" >
+                        </div>
+                        <div class="col-md-3" >
+                            <input type="text" id="inc-preco" style="width: 100px;">
+                        </div>
+                        <div class="col-md-4" >
+                            <input type="date" id="inc-data" style="width: 140px;">
+                        </div>
+     
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                    <button type="button" id="bt-fecharModal" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" id="bt-incluir" class="btn btn-primary">Salvar mudanças</button>
                 </div>
             </div>
         </div>
@@ -123,6 +164,13 @@
 
     <script src="app/util/HttpService.js" ></script>
     <script src="app/service/Service.js" ></script>
+    <script src="app/domain/negociacao/Negociacao.js"></script>
+    <script src="app/domain/negociacao/Negociacoes.js"></script>
+    <script src="app/ui/models/Mensagem.js"></script>
+    <script src="app/ui/views/View.js"></script>
+    <script src="app/ui/views/MensagemView.js"></script>
+    <script src="app/ui/views/NegociacoesView.js"></script>
+
     <script src="app/controllers/negociacao/ControllerNegociacao.js"></script>
     <script src="app/app.js"></script>
     

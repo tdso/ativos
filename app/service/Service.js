@@ -13,7 +13,15 @@ class Service {
         return this.http.delete(this._urlNeg, id);
     }
     insertNegociacao(negociacao){
-        return this.http.post(this._urlNeg, negociacao);
+        return this.http.post(this._urlNeg, 
+            {
+             idAtivo: negociacao.ativo,
+             dataOperacao: negociacao.dataOperacao,
+             quantidade: negociacao.quantidade,
+             preco: negociacao.preco,
+             tipoOperacao: negociacao.tipoOperacao
+            }
+        );
     }
 
 
