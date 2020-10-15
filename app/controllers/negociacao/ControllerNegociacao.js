@@ -20,28 +20,30 @@ class ControllerNegociacao {
         this.negociacoesView = new NegociacoesView("#negs");
         this.mensagem = new Mensagem();
         this.service = new Service();
-        
     }
 
     pesquisaAtivos(){
+        if (this._negociacoes.length > 0) {
+            this._negociacoes.limpa;
+            // this.negociacoesView.update(this._negociacoes);
+            // this.mensagem.texto = "";
+            // this.mensagemView.update(this.mensagem);
+        };
+
         this.service.getNegociacoes()
         .then(dados => {
-            console.log(dados);
             dados.map( item => this._negociacoes.adiciona(new Negociacao(item.idAtivo, item.dataOperacao, item.preco, item.quantidade, item.tipoOperacao, item.idNegociacao)));
-            console.log('this.negociacoes = ', this._negociacoes);
-            this.negociacoesView.update(this._negociacoes, this.excluiTeste.bind(this.excluiTeste));
+            this.negociacoesView.update(this._negociacoes);
             this.mensagem.texto = "Pesquisa Efetuada com sucesso";
             this.mensagemView.update(this.mensagem);
             let els = document.getElementsByClassName('trash');
             for (let i = 0; i < els.length; i++){
                 els.item(i).addEventListener('click', this.excluiNeg.bind(this.excluiNeg, els.item(i).id));
             }
-
         });
     }
 
     incluirAtivos(){
-        
         // formatar campos
         // validar campos
         
@@ -56,15 +58,20 @@ class ControllerNegociacao {
             this._negociacoes.limpa();
         })
         .catch(err => console.log("Erro inclusao ativo => ", err));
-
     }
 
-    excluiTeste(id){
-        return alert(id);
-        
-    }
-    excluiNeg(id){
-        alert(id);
+    excluiNeg = id => {
+        this.service.deleteNegociacaoById(id.substring(2))
+        .then(dados => {
+            console.log('excluiu ? ');
+            this.mensagem.texto = "Exclusão Efetuada !";
+            this.mensagemView.update(this.mensagem);
+            this._negociacoes.limpa();
+            this.negociacoesView.update(this._negociacoes);
+            this.pesquisaAtivos();
+            //this.negociacoesView.update(this._negociacoes);
+        })
+        .catch(err => console.log("Erro inclusao ativo => ", err));        
     } 
 
     limpaCamposInclusao(){

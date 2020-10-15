@@ -1,7 +1,7 @@
 class NegociacoesView extends View{
   
-    template(model, cb){
-        console.log("template = ", cb);
+    template(model){
+        if (model.negociacoes.length === 0) return ``;
         return(`
             <table class="table table-striped">
                 <thead>
@@ -17,9 +17,6 @@ class NegociacoesView extends View{
                 </thead>
                 <tbody>
                     ${model.negociacoes.map( (neg, i) => {
-                        console.log('objeto', neg, "index = ", i);
-                        let key = 'neg-' + i;
-                        let key2 = 'n' + i;
                         return `
                             <tr>
                                 <th scope="row">${neg._id}</th>
@@ -28,8 +25,7 @@ class NegociacoesView extends View{
                                 <td>${neg.quantidade}</td>
                                 <td>${neg._preco}</td>
                                 <td>${neg._tipoOperacao}</td>
-                                <td ><img class="trash" src="./app/ui/assets/excluir.png" id="${key}" ></td>
-
+                                <td ><img class="trash" src="./app/ui/assets/excluir.png" id="k-${neg._id}" ></td>
                             </tr>
                         `;
                     })}
