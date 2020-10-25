@@ -22,24 +22,79 @@ class ControllerNegociacao {
         this.service = new Service();
     }
 
-    pesquisaAtivos(){
-        if (this._negociacoes.length > 0) {
-            this._negociacoes.limpa;
-            // this.negociacoesView.update(this._negociacoes);
-            // this.mensagem.texto = "";
-            // this.mensagemView.update(this.mensagem);
-        };
-
-        this.service.getNegociacoes()
-        .then(dados => {
-            dados.map( item => this._negociacoes.adiciona(new Negociacao(item.idAtivo, item.dataOperacao, item.preco, item.quantidade, item.tipoOperacao, item.idNegociacao)));
-            this.negociacoesView.update(this._negociacoes);
-            this.mensagem.texto = "Pesquisa Efetuada com sucesso";
-            this.mensagemView.update(this.mensagem);
-            let els = document.getElementsByClassName('trash');
-            for (let i = 0; i < els.length; i++){
-                els.item(i).addEventListener('click', this.excluiNeg.bind(this.excluiNeg, els.item(i).id));
+    apuraParamsInformados(){
+        if (!(this.idAtivo.value.trim() || this.dataInicio.value || this.dataFim.value || this.tipoOperacao.value.trim())){
+            return 5;
+        } 
+        if (this.idAtivo.value.trim() && this.dataInicio.value && this.dataFim.value && this.tipoOperacao.value.trim()){
+            return 4;
+        } 
+        if (this.idAtivo.value.trim() && this.tipoOperacao.value.trim()) {
+            if (this.datasInformadas()) {
+                return 4;
             }
+            return 3;
+        }
+        if (this.idAtivo.value.trim()) {
+            if (this.datasInformadas()) {
+                return 22;
+            }
+            return 2;
+        }
+        if (this.tipoOperacao.value.trim()) {
+            if (this.datasInformadas()) {
+                return 11;
+            }
+            return 1;
+        }
+        if (this.datasInformadas()){
+            return 6;
+        }
+        return 0;
+    }
+
+    datasInformadas(){
+        if (this.dataInicio.value && this.dataFim.value ) {
+            return true;
+        }
+        if (!(this.dataInicio.value || this.dataFim.value)){
+            return false;
+        }
+        if (this.dataInicio.value) {
+            this.dataFim.value = this.dataInicio.value;
+        } else {
+            this.dataInicio.value = this.dataFim.value ;
+        }
+        return true;
+    }
+
+    pesquisaAtivos(){
+        if (this._negociacoes.negociacoes.length > 0) {
+            this._negociacoes.limpa();
+        };
+        // identificar qual operacao de consulta chamar
+        let tipoPesquisa = this.apuraParamsInformados();
+        this.service.getNegociacoes(this.idAtivo.value.trim(), this.dataInicio.value,
+            this.dataFim.value, this.tipoOperacao.value.trim(), tipoPesquisa)
+        .then(dados => {
+            if (dados.length <= 0){
+                this._negociacoes.limpa();
+                this.negociacoesView.update(this._negociacoes);
+                this.mensagem.texto = "Pesquisa Não encontrou negociações";
+                this.mensagemView.update(this.mensagem);
+            } else {
+                dados.map( item => this._negociacoes.adiciona(new Negociacao(item.idAtivo, item.dataOperacao, item.preco, item.quantidade, item.tipoOperacao, item.idNegociacao)));
+                this.negociacoesView.update(this._negociacoes);
+                this.mensagem.texto = "Pesquisa Efetuada com sucesso";
+                this.mensagemView.update(this.mensagem);
+                let els = document.getElementsByClassName('trash');
+                for (let i = 0; i < els.length; i++){
+                    els.item(i).addEventListener('click', this.excluiNeg.bind(this.excluiNeg, els.item(i).id));
+                }
+            }
+        })
+        .catch(err => {
+            console.log('erro na pesquisa');
         });
     }
 
@@ -63,7 +118,6 @@ class ControllerNegociacao {
     excluiNeg = id => {
         this.service.deleteNegociacaoById(id.substring(2))
         .then(dados => {
-            console.log('excluiu ? ');
             this.mensagem.texto = "Exclusão Efetuada !";
             this.mensagemView.update(this.mensagem);
             this._negociacoes.limpa();
@@ -87,4 +141,5 @@ class ControllerNegociacao {
         this.inc_msg_view.update(this.inc_msg);
         this.pesquisaAtivos();
     }
+
 }

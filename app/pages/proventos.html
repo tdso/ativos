@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Controle de Ativos</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel=”stylesheet” href=”css/estilos.css”>
+    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <link rel=”stylesheet” href="../../css/estilos.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="css/bootstrap.js"></script>
-    <script src="css/bootstrap.js.map"></script>
+    <script src="../../css/bootstrap.js"></script>
+    <script src="../../css/bootstrap.js.map"></script>
     <!-- <link rel="stylesheet" href="css/bootstrap-theme.css"> -->
     <style>
         .borda {
@@ -39,6 +39,18 @@
             width: 25px;;
             height: 25px;
         }
+        .lista-tipo {
+            font-size: 14px;
+            margin-left: 5px;
+            margin-bottom: auto;
+            border: 1px solid #ced4da;
+            background-color: white;
+        }
+        .lista-tipo-opcoes {
+            font-size: 14px;
+            color:white;
+            background-color: gray;
+        }
 
     </style>
 </head>
@@ -47,13 +59,13 @@
     <div class="container borda espaco-topo" >
         <div class="row">
             <div class="col-md-3">Resumo</div>
-            <div class="col-md-3">Negociações</div>
-            <div class="col-md-3"><a href="./app/pages/proventos.html">Proventos</a></div>
+            <div class="col-md-3"><a href="../../index.html" >Negociações</a></div>
+            <div class="col-md-3">Proventos</div>
             <div class="col-md-3">Métricas</div>
         </div>
     </div>
 
-    <h1 class="text-center" style="color:black">Negociações</h1>
+    <h1 class="text-center" style="color:black">Proventos</h1>
 
     <div class="mensagem-sistema" id="msg">
     </div>
@@ -63,41 +75,31 @@
         <div class="row espaco-topo espaço-rodape">
             <div class="col" style="text-align: right;">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInclusao">
-                    Incluir Nova Negociação
+                    Incluir Proventos
                 </button>
-                <!-- <span class="btn btn-primary nova-negociacao" data-toggle="modal" data-target="#modalInclusao">Nova Negociação</span> -->
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-3">Ativo</div>
-            <div class="col-md-3">Operações entre</div>
-            <div class="col-md-3">Até</div>
-            <div class="col-md-3">Tipo de Operação</div>
+            <div class="col-md-4">Ativo</div>
+            <div class="col-md-4">Mês/Ano Pagto</div>
+            <div class="col-md-4">Tipo de Provento</div>
         </div>
         <div class="row espaco-topo">
-            <!-- <div class="form"> -->
-                <!-- <div class="row"> -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <input type="text" id="id-ativo" class="form-control" required autofocus/>        
                     </div>
-                    <div class="col-md-3">
-                        <input type="date" id="data-pesq-inicio" class="form-control" required autofocus/>        
+                    <div class="col-md-4">
+                        <input type="text" id="data-pgto" class="form-control" required autofocus/>        
                     </div>
-                    <div class="col-md-3">
-                        <input type="date" id="data-pesq-fim" class="form-control" required autofocus/>        
+                    <div class="col-md-4 label-inclusao">
+                        <select class="lista-tipo" name="tipos-prov" id="tipo-prov" style="height: 35px; width: 150px;">
+                            <option class="lista-tipo-opcoes" value="0"></option>
+                            <option class="lista-tipo-opcoes" value="1">Renda FII</option>
+                            <option class="lista-tipo-opcoes" value="2">Dividendos</option>
+                            <option class="lista-tipo-opcoes" value="3">JSCP</option>
+                        </select>
                     </div>
-                    <div class="col-md-3">
-                        <input type="data" id="tipo-operacao" class="form-control" required autofocus/>        
-                        <!-- <select class="form-control form-control-line">
-                            <option>-- Selecione --</option>
-                            <option>Sim</option>
-                            <option>Não</option>
-
-                          </select> -->
-                    </div>
-                <!-- </div> -->
-            <!-- </div> -->
         </div>
         <div class="row espaco-topo espaço-rodape">
             <div class="col" style="text-align: right;">
@@ -114,7 +116,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Inclusão de Negociações</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Inclusão de Proventos</h5>
                     <button type="button" id="fecharModal" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -125,32 +127,37 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="row">
-                        <input type="radio" id="inc-compra" name="tipo" value="1" checked class="input-tipo">
-                        <label for="compra">Compra</label><br>
-                        <input type="radio" id="inc-venda" name="tipo" value="2" class="input-tipo">
-                        <label for="venda">Venda</label><br>
-                    </div>
                     <div class="row label-inclusao">
+                        <label for="tipos">Selecione o tipo de provento:</label>
+                        <select class="lista-tipo" name="tipos" id="inc-tp-prov">
+                            <option class="lista-tipo-opcoes" value="1">Renda FII</option>
+                            <option class="lista-tipo-opcoes" value="2">Dividendos</option>
+                            <option class="lista-tipo-opcoes" value="3">JSCP</option>
+                          </select>
+                        
+                    </div>
+
+                    <div class="row label-inclusao">
+                       
                         <div class="col-md-3">Ativo</div>
-                        <div class="col-md-2">Quantidade</div>
-                        <div class="col-md-3">Preço</div>
-                        <div class="col-md-4">Data</div>
+                        <div class="col-md-3">Mês/Ano Base</div>
+                        <div class="col-md-3">Mês/Ano Pagto</div>
+                        <div class="col-md-3">Valor Recebido</div>
+                        
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <input type="text" id="inc-ativo" style="width: 100px;">
                         </div>
-                        <div class="col-md-2" >
-                            <input type="text" required id="inc-qtde" style="width: 70px;" >
+                        <div class="col-md-3" >
+                            <input type="text" required id="inc-dtbase" style="width: 100px;" >
                         </div>
                         <div class="col-md-3" >
-                            <input type="text" id="inc-preco" style="width: 100px;">
+                            <input type="text" id="inc-dtpgto" style="width: 100px;">
                         </div>
-                        <div class="col-md-4" >
-                            <input type="date" id="inc-data" style="width: 140px;">
+                        <div class="col-md-3" >
+                            <input type="text" id="inc-valor" style="width: 100px;">
                         </div>
-     
                     </div>
                     
                 </div>
@@ -161,19 +168,12 @@
             </div>
         </div>
     </div>
-
-    <script src="app/util/HttpService.js" ></script>
-    <script src="app/service/Service.js" ></script>
-    <script src="app/domain/negociacao/Negociacao.js"></script>
-    <script src="app/domain/negociacao/Negociacoes.js"></script>
-    <script src="app/ui/models/Mensagem.js"></script>
-    <script src="app/ui/views/View.js"></script>
-    <script src="app/ui/views/MensagemView.js"></script>
-    <script src="app/ui/views/NegociacoesView.js"></script>
-    <script src="app/ui/util/DataFormat.js"></script>
-
-    <script src="app/controllers/negociacao/ControllerNegociacao.js"></script>
-    <script src="app/app.js"></script>
-    
+    <!-- SCRIPTS -->
+    <script src="../util/HttpService.js"></script>
+    <script src="../service/ProventoService.js"></script>
+    <script src="../domain/proventos/Proventos.js" ></script>
+    <script src="../domain/proventos/Provento.js" ></script>
+    <script src="../controllers/provento/ControllerProvento.js"></script>
+    <script src="../app-proventos.js"></script>
 </body>
 </html>

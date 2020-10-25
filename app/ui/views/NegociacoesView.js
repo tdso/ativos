@@ -21,7 +21,7 @@ class NegociacoesView extends View{
                             <tr>
                                 <th scope="row">${neg._id}</th>
                                 <td>${neg._ativo}</td>
-                                <td>${neg._dataOperacao}</td>
+                                <td>${DataFormat.toDisplay(neg._dataOperacao)}</td>
                                 <td>${neg.quantidade}</td>
                                 <td>${neg._preco}</td>
                                 <td>${neg._tipoOperacao}</td>
