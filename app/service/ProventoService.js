@@ -4,17 +4,22 @@ class ProventoService {
         this._urlNeg = 'http://localhost:8080/provento';
     }
     getProventos(ativo, datapgto, provento, tipo){
+        console.log('tipo = ', tipo);
+        console.log('ativo = ', ativo);
+        console.log('datapgto = ', datapgto);
+        console.log('provento = ', provento);
         switch(tipo){
-            case 5:
+            case 1:
                 return this.http.get(this._urlNeg);
-            case 6:
-                return this.http.get(this._urlNeg + `${datapgto}`);
-            case 22:
-                return this.http.get(this._urlNeg + `${datapgto}/${ativo}/${provento}`);
-            case 32:
-                return this.http.get(this._urlNeg + `/ativo/${datapgto}/${ativo}`);
-            case 42:
+            case 2:
+                console.log('pesquisa = 2');
+                return this.http.get(this._urlNeg + `/${datapgto}/${ativo}/${provento}`);
+            case 3:
                 return this.http.get(this._urlNeg + `/tipo/${datapgto}/${provento}`);
+            case 4:
+                return this.http.get(this._urlNeg + `/ativo/${datapgto}/${ativo}`);
+            case 5:
+                return this.http.get(this._urlNeg + `/${datapgto}`);
             default:
                 console.log("Erro > Tipo de Pesquisa nao identificado para provento !!"); 
         } 
